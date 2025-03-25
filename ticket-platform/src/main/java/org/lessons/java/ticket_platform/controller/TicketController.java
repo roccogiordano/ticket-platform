@@ -20,7 +20,7 @@ public class TicketController {
     @GetMapping
     public String view(Model model) {
         List<Ticket> tickets = ticketRepository.findAll();
-        model.addAttribute(tickets);
+        model.addAttribute("tickets", tickets);
         return("/tickets/index");
     }
 
