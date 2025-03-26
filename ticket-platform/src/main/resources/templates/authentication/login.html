@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Platform - Login</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
+</head>
+
+<body class="bg-light d-flex vh-100 justify-content-center align-items-center">
+
+    <div class="col-md-6 col-lg-4">
+        <div class="card p-4 shadow-sm">
+            <div class="card-body">
+
+                <h2 class="card-title text-center mb-4">Ticket Platform</h2>
+
+                <form th:action="@{/login}" method="post">
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" required autofocus />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" required />
+                    </div>
+
+                    <div th:if="${param.error}" class="alert alert-danger">
+                        Invalid username or password.
+                    </div>
+
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        You have been successfully logged out.
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <small>&copy; 2025 | Rocco Giordano</small>
+        </div>
+    </div>
+
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>
