@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pizzeria Bella Napoli</title>
+    <title>Ticket Platform</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
     <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.1/css/all.min.css}">
 </head>
@@ -30,11 +30,15 @@
                         <div class="dropdown">
                             <a class="btn btn-sm btn-outline-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="#">Details</a></li>
-                              <li><a class="dropdown-item" href="#">Edit</a></li>
+                              <li><a class="dropdown-item" th:href="@{|/tickets/${ticket.id}|}">Details</a></li>
+                              <li><a class="dropdown-item" th:href="@{|/tickets/edit/${ticket.id}|}">Edit</a></li>
                               <li><a class="dropdown-item" href="#">Add Notes</a></li>
                               <li><a class="dropdown-item" href="#">Update Status</a></li>
-                              <li><a class="dropdown-item" href="#">Delete</a></li>
+                              <li>
+                                <form th:action="@{|/tickets/delete/${ticket.id}|}" method="POST">
+                                    <button type="submit" class="dropdown-item text-danger">Delete</button>
+                                </form>
+                              </li>
                             </ul>
                           </div>
                     </td>
