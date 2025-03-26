@@ -1,5 +1,7 @@
 package org.lessons.java.ticket_platform.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.annotation.Nullable;
@@ -10,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,15 +33,15 @@ public class Ticket {
     @NotBlank(message = "Status is mandatory")
     private String status;
 
-    @Column(name = "notes")
-    @Nullable
-    private String notes;
-
     @ManyToOne
     @JoinColumn(name = "operator_id", nullable = false)
     @NotNull(message = "Operator ID is mandatory")
     @JsonIgnore
     private Operator operator;
+
+    @OneToMany(mappedBy = "ticket")
+    @Nullable
+    private List<Note> notes;
 
     public Integer getId() {
         return id;
@@ -64,11 +67,11 @@ public class Ticket {
         this.status = status;
     }
 
-    public String getNotes() {
+    public List<Note> getNotes() {
         return notes;
     }
 
-    public void setNotes(String notes) {
+    public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
 
