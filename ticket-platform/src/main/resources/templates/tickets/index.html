@@ -12,6 +12,7 @@
 <body class="bg-light">
     <div class="container py-4">
         <header th:replace="fragments/header :: header('Ticket List')"></header>
+        <th:block th:replace="fragments/alert :: alert(${message}, ${messageClass})"></th:block>
         <table class="table table-bordered table-hover align-middle">
             <thead>
                 <tr>
