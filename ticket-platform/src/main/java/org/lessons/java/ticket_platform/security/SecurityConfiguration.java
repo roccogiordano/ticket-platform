@@ -43,10 +43,10 @@ public class SecurityConfiguration {
 
                 .requestMatchers("/tickets/create", "/tickets/edit/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/tickets/**").hasAuthority("ADMIN")
-                .requestMatchers("/tickets/{id}/note", "/notes/edit/**").hasAuthority("ADMIN")
+                .requestMatchers( "/notes/edit/**").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/notes/**").hasAuthority("ADMIN")
 
-                .requestMatchers("/tickets", "/tickets/**", "/notes", "/notes/create")
+                .requestMatchers("/tickets", "/tickets/**", "/tickets/{id}/note", "/notes/create")
                 .hasAnyAuthority("USER", "ADMIN")
 
                 .anyRequest().permitAll();
