@@ -1,0 +1,6 @@
+<th:block th:fragment="alert(message, messageClass)" th:if="${message != null && messageClass != null}">
+    <div class="alert alert-dismissible fade show mb-4" role="alert" th:classappend="${messageClass}">
+        <p class="mb-0" th:text="${message}"></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</th:block>
