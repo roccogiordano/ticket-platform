@@ -32,8 +32,8 @@
                             <ul class="dropdown-menu">
                               <li><a class="dropdown-item" th:href="@{|/tickets/${ticket.id}|}">Details</a></li>
                               <li><a class="dropdown-item" th:href="@{|/tickets/edit/${ticket.id}|}">Edit</a></li>
-                              <li><a class="dropdown-item" href="#">Add Notes</a></li>
-                              <li><a class="dropdown-item" href="#">Update Status</a></li>
+                              <li><a class="dropdown-item" th:href="@{|/tickets/${ticket.id}/note|}">Add Notes</a></li>
+                              <li><a class="dropdown-item" th:href="@{|/tickets/status/${ticket.id}|}">Update Status</a></li>
                               <li>
                                 <form th:action="@{|/tickets/delete/${ticket.id}|}" method="POST">
                                     <button type="submit" class="dropdown-item text-danger">Delete</button>
