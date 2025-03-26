@@ -81,6 +81,7 @@ public class TicketController {
     public String edit(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("ticket", ticketRepository.findById(id).get());
         model.addAttribute("operators", operatorRepository.findAll());
+        model.addAttribute("isReadOnly", false);
         return "/tickets/edit";
     }
  
@@ -115,6 +116,14 @@ public class TicketController {
         redirectAttributes.addFlashAttribute("messageClass", "alert-danger");
 
         return "redirect:/tickets";
+    }
+
+    @GetMapping("status/{id}")
+    public String editStatus(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("ticket", ticketRepository.findById(id).get());
+        model.addAttribute("operators", operatorRepository.findAll());
+        model.addAttribute("isReadOnly", true);
+        return "/tickets/edit";
     }
 
 }
