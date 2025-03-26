@@ -16,7 +16,8 @@
                 <form th:action="@{|/tickets/edit/${ticket.id}|}" th:object="${ticket}" method="post">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter ticket name"  maxlength="30" th:errorclass="is-invalid" required>
+                        <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter ticket name"  maxlength="30" th:errorclass="is-invalid" th:attr="disabled=${isReadOnly}" required>
+                        <input type="hidden" th:field="*{name}" th:attr="disabled=${!isReadOnly}"/>
                         <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
                             <ul class="ps-3">
                                 <li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li>
@@ -41,19 +42,20 @@
                     <div class="mb-3">
                         <div class="mb-1">
                             <label th:for="operator" class="form-label">Operator</label>
-                            <select class="form-select" aria-label="Operator select" th:field="*{operator}" th:errorclass="is-invalid" required>
+                            <select class="form-select" aria-label="Operator select" th:field="*{operator}" th:errorclass="is-invalid" th:attr="disabled=${isReadOnly}" required>
                                 <option value="" disabled selected>Choose an operator</option>
                                 <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.firstName} + ' ' + ${operator.lastName}">Full Name</option>
                               </select>
+                            <input type="hidden" th:field="*{operator.id}" th:attr="disabled=${!isReadOnly}"/>
                             <div th:if="${#fields.hasErrors('operator')}" class="invalid-feedback">
                                 <ul class="ps-3">
-                                    <li th:each="error : ${#fields.errors('operators')}" th:text="${error}"></li>
+                                    <li th:each="error : ${#fields.errors('operator')}" th:text="${error}"></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-outline-primary">Edit Ticket</button>
+                        <button type="submit" class="btn btn-outline-primary" th:text="${isReadOnly} ? 'Edit Status' : 'Edit Ticket'">Edit</button>
                         <a th:href="@{/tickets}" class="btn btn-outline-secondary">Cancel</a>
                     </div>
                 </form>
