@@ -34,12 +34,15 @@
                                 New Note</a>
                         </div>
                         <div>
-                            <a th:href="@{'/tickets/edit/' + ${ticket.id}}" class="btn btn-outline-secondary">Edit ticket</a>
+                            <a th:href="@{'/tickets/edit/' + ${ticket.id}}" class="btn btn-outline-secondary" sec:authorize="hasAuthority('ADMIN')">Edit Ticket</a>
+                        </div>
+                        <div>
+                            <a th:href="@{'/tickets/status/' + ${ticket.id}}" class="btn btn-outline-secondary">Update Status</a>
                         </div>
                     </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                            th:data-bs-target="'#delete-' + ${ticket.id}">
+                            th:data-bs-target="'#delete-' + ${ticket.id}" sec:authorize="hasAuthority('ADMIN')">
                             Delete
                         </button>
                     </div>

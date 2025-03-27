@@ -32,12 +32,12 @@
                             <a class="btn btn-sm btn-outline-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
                             <ul class="dropdown-menu">
                               <li><a class="dropdown-item" th:href="@{|/tickets/${ticket.id}|}">Details</a></li>
-                              <li><a class="dropdown-item" th:href="@{|/tickets/edit/${ticket.id}|}">Edit</a></li>
+                              <li><a class="dropdown-item" th:href="@{|/tickets/edit/${ticket.id}|}" sec:authorize="hasAuthority('ADMIN')">Edit</a></li>
                               <li><a class="dropdown-item" th:href="@{|/tickets/${ticket.id}/note|}">Add Notes</a></li>
                               <li><a class="dropdown-item" th:href="@{|/tickets/status/${ticket.id}|}">Update Status</a></li>
                               <li>
                                 <form th:action="@{|/tickets/delete/${ticket.id}|}" method="POST">
-                                    <button type="submit" class="dropdown-item text-danger">Delete</button>
+                                    <button type="submit" class="dropdown-item text-danger" sec:authorize="hasAuthority('ADMIN')">Delete</button>
                                 </form>
                               </li>
                             </ul>
