@@ -57,12 +57,14 @@ public class TicketController {
 
             List<Ticket> tickets = ticketRepository.findAll();
             model.addAttribute("tickets", tickets);
+            model.addAttribute("operator", loggedOperator);
             return("/tickets/index");
 
         }
 
         List<Ticket> tickets = ticketRepository.findByOperator(loggedOperator);
         model.addAttribute("tickets", tickets);
+        model.addAttribute("operator", loggedOperator);
         return("/tickets/index");
     }
 
