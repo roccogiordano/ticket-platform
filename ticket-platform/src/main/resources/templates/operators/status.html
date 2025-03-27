@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${operator.firstName} + ' ' + ${operator.lastName} + ' - Edit Status'">Edit Status</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" />
+</head>
+
+<body class="bg-light d-flex vh-100 justify-content-center align-items-center">
+
+    <div class="col-md-6 col-lg-4">
+        <div class="card p-4 shadow-sm">
+            <div class="card-body">
+
+                <h2 class="card-title text-center mb-4" th:text="${operator.firstName} + ' ' + ${operator.lastName}">Operator Name</h2>
+
+                <form th:action="@{|/operators/status/${id}|}" th:object="${operator}" method="post">
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" name="status" class="form-select" th:field="*{status}">
+                            <option value="ACTIVE" th:selected="${operator.status == 'ACTIVE'}">Active</option>
+                            <option value="INACTIVE" th:selected="${operator.status == 'INACTIVE'}">Inactive</option>
+                        </select>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+
+</html>
