@@ -12,8 +12,11 @@
 <body class="bg-light">
     <div class="container py-4">
         <header th:replace="fragments/header :: header('Ticket List')"></header>
+        <div class="alert alert-warning" th:if="${tickets.empty}">
+            No tickets available at the moment.
+        </div>
         <th:block th:replace="fragments/alert :: alert(${message}, ${messageClass})"></th:block>
-        <table class="table table-bordered table-hover align-middle">
+        <table class="table table-bordered table-hover align-middle" th:unless="${tickets.empty}">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -26,7 +29,7 @@
                 <tr th:each="ticket : ${tickets}">
                     <td th:text="${ticket.name}"></td>
                     <td th:text="${ticket.operator.firstName} + ' ' + ${ticket.operator.lastName}"></td>
-                    <td th:text="${ticket.status}" class="d-none d-sm-table-cell"></td>
+                    <td th:text="${ticket.humanStatus}" class="d-none d-sm-table-cell"></td>
                     <td class="text-end">
                         <div class="dropdown">
                             <a class="btn btn-sm btn-outline-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>
@@ -46,6 +49,11 @@
                 </tr>
             </tbody>
         </table>
+        <div class="mt-4 d-flex justify-content-between">
+            <a th:href="@{/tickets/create}" class="btn btn-success" sec:authorize="hasAuthority('ADMIN')">Add New Ticket</a>
+            <a th:href="@{|/operators/status/${operator.id}|}" class="btn btn-primary" th:unless="${tickets.empty}">Your Details</a>
+            <a th:href="@{/tickets}" class="btn btn-primary" th:if="${tickets.empty}">Back to Menu</a>
+        </div>
     </div>
     <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
 </body>

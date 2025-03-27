@@ -27,10 +27,10 @@
                         <label for="status" class="form-label">Status</label>
                         <select class="form-select" aria-label="Status select" th:field="*{status}" th:errorclass="is-invalid" required>
                             <option value="" disabled selected>Choose a status</option>
-                            <option value="Open">Open</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="Closed">Closed</option>
-                            <option value="On Hold">On Hold</option>
+                            <option value="OPEN">Open</option>
+                            <option value="IN_PROGRSS">In Progress</option>
+                            <option value="CLOSED">Closed</option>
+                            <option value="ON_HOLD">On Hold</option>
                           </select>
                         <div th:if="${#fields.hasErrors('status')}" class="invalid-feedback">
                             <ul class="ps-3">
