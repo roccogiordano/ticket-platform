@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,8 +32,9 @@ public class Ticket {
     private String name;
 
     @Column(name = "status")
-    @NotBlank(message = "Status is mandatory")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Status is mandatory")
+    private TicketStatus status;
 
     @ManyToOne
     @JoinColumn(name = "operator_id", nullable = false)
@@ -59,39 +62,44 @@ public class Ticket {
         this.name = name;
     }
 
-    public String getStatus() {
+    public TicketStatus getStatus() {
         return status;
     }
-
-    public void setStatus(String status) {
+    
+    public void setStatus(TicketStatus status) {
         this.status = status;
     }
-
+    
+    
     public List<Note> getNotes() {
         return notes;
     }
-
+    
     public void setNotes(List<Note> notes) {
         this.notes = notes;
     }
-
+    
     public Operator getOperator() {
         return operator;
     }
-
+    
     public void setOperator(Operator operator) {
         this.operator = operator;
     }
 
+    public String getHumanStatus() {
+        return status.toString().replace("_", " ").toUpperCase();
+    }
+    
     @Override
     public String toString() {
         return "Ticket{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", status='" + status + '\'' +
-                ", notes='" + notes + '\'' +
-                ", operator=" + operator +
-                '}';
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", status='" + status + '\'' +
+        ", notes='" + notes + '\'' +
+        ", operator=" + operator +
+        '}';
     }
-
+    
 }
