@@ -10,4 +10,6 @@ public interface OperatorRepository extends JpaRepository<Operator, Integer> {
 
     Optional<Operator> findByUser(User user);
 
+    Optional<Operator> findById(Integer id);
+
 }
