@@ -1,6 +1,6 @@
 package org.lessons.java.ticket_platform.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,22 +23,64 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "author")
-    @NotBlank(message = "Author is mandatory")
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "author", nullable = false)
+    @NotNull(message = "Author ID is mandatory")
+    @JsonIgnore
+    private Operator author;
 
-    @Column(name = "creation_date")
+    @Column(name = "created_at")
     @NotNull(message = "Creation date is mandatory")
-    private LocalDate creationDate;
+    private LocalDateTime createdAt;
 
-    @Column(name = "text")
-    @NotBlank(message = "Text is mandatory")
-    private String text;
+    @Column(name = "description")
+    @NotBlank(message = "Description is mandatory")
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", nullable = false)
     @NotNull(message = "Ticket ID is mandatory")
     @JsonIgnore
     private Ticket ticket;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Operator getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Operator author) {
+        this.author = author;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
 
 }
