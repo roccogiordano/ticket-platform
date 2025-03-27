@@ -7,7 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -33,6 +35,13 @@ public class Operator {
 
     @OneToMany(mappedBy = "operator")
     private List<Ticket> tickets;
+
+    @OneToMany(mappedBy = "author")
+    private List<Note> notes;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    private User user;
 
     public Integer getId() {
         return id;
@@ -78,6 +87,6 @@ public class Operator {
     public String toString() {
         return "Operator [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", status=" + status
                 + "]";
-    }
 
+    }
 }
