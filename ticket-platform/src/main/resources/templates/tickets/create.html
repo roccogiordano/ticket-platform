@@ -43,7 +43,7 @@
                             <label th:for="operator" class="form-label">Operator</label>
                             <select class="form-select" aria-label="Operator select" th:field="*{operator}" th:errorclass="is-invalid" required>
                                 <option value="" disabled selected>Choose an operator</option>
-                                <option th:each="operator : ${operators}" th:value="${operator.id}" th:text="${operator.firstName} + ' ' + ${operator.lastName}">Full Name</option>
+                                <option th:each="operator : ${operators}" th:if="${#strings.toUpperCase(operator.status) == 'ACTIVE'}" th:value="${operator.id}" th:text="${operator.firstName} + ' ' + ${operator.lastName}">Full Name</option>
                               </select>
                             <div th:if="${#fields.hasErrors('operator')}" class="invalid-feedback">
                                 <ul class="ps-3">
