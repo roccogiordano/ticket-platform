@@ -76,8 +76,12 @@ public class TicketController {
 
     @GetMapping("/search")
     public String search(@RequestParam(name = "name") String name, Model model) {
-        List<Ticket> tickets = ticketRepository.findByNameContaining(name);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Operator loggedOperator = operatorService.getLoggedOperator(username);
+        List<Ticket> tickets = ticketRepository.findByOperatorAndNameContaining(loggedOperator, name);
         model.addAttribute("tickets", tickets);
+        model.addAttribute("operator", loggedOperator);
         return "/tickets/index";
     }
 

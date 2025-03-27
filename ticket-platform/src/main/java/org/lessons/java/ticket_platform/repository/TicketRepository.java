@@ -12,4 +12,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
     public List<Ticket> findByOperator(Operator operator);
 
+    public List<Ticket> findByOperatorAndNameContaining(Operator operator, String name);
+
 }
