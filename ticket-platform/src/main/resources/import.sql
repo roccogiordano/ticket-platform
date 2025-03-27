@@ -1,1 +1,1 @@
-INSERT INTO `operators` (first_name, last_name, status) VALUES ('John', 'Doe', 'Active'), ('Alice', 'Smith', 'Inactive'), ('Robert', 'Johnson', 'Active'), ('Emily', 'Davis', 'Active'), ('Michael', 'Brown', 'Inactive'); 
+INSERT INTO operators (first_name, last_name, status, user_id) VALUES ('Mario', 'Rossi', 'Active', 1), ('Luca', 'Bianchi', 'Inactive', 2), ('Giulia', 'Verdi', 'Active', 3);
