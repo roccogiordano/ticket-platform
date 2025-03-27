@@ -1,13 +1,18 @@
 package org.lessons.java.ticket_platform.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.lessons.java.ticket_platform.model.Note;
+import org.lessons.java.ticket_platform.model.Operator;
 import org.lessons.java.ticket_platform.model.Ticket;
 import org.lessons.java.ticket_platform.repository.NoteRepository;
 import org.lessons.java.ticket_platform.repository.OperatorRepository;
 import org.lessons.java.ticket_platform.repository.TicketRepository;
+import org.lessons.java.ticket_platform.service.OperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +35,9 @@ public class TicketController {
 
     @Autowired
     private OperatorRepository operatorRepository;
+
+    @Autowired
+    private OperatorService operatorService;
 
     @Autowired
     private NoteRepository noteRepository;
@@ -124,6 +132,25 @@ public class TicketController {
         model.addAttribute("operators", operatorRepository.findAll());
         model.addAttribute("isReadOnly", true);
         return "/tickets/edit";
+    }
+
+    @GetMapping("/{id}/note")
+    public String note(@PathVariable("id") Integer id, Model model) {
+
+        Note note = new Note();
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Operator loggedOperator = operatorService.getLoggedOperator(username);
+
+        note.setTicket(ticketRepository.findById(id).get());
+        note.setAuthor(loggedOperator);
+        note.setCreatedAt(LocalDateTime.now());
+
+        model.addAttribute("note", note);
+        model.addAttribute("ticket", ticketRepository.findById(id).get());
+
+        return "/notes/create";
     }
 
 }
