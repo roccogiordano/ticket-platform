@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Notes</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.1/css/all.min.css}">
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <header th:replace="fragments/header :: header('Edit Note')"></header>
+        
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form th:action="@{|/notes/edit/{id}|}" th:object="${note}" method="post">
+                    <input type="hidden" th:field="*{ticket.id}"/>
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" id="author" class="form-control" th:value="*{author != null ? author.firstName + ' ' + author.lastName : ''}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="createdAt" class="form-label">Created At</label>
+                        <input type="text" id="createdAt"  class="form-control" th:field="*{createdAt}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" th:field="*{description}" placeholder="Enter note description" th:errorclass="is-invalid" required></textarea>
+                        <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                            <ul class="ps-3">
+                                <li th:each="error : ${#fields.errors('description')}" th:text="${error}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-outline-primary">Edit Note</button>
+                        <a th:href="@{/tickets}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
