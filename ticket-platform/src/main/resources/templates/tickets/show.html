@@ -52,12 +52,12 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel"
-                                        th:text="'ticket ' + ${ticket.name}"></h1>
+                                        th:text="${ticket.name}"></h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body"
-                                    th:text="'Are you sure you want to delete Ticket ' + ${ticket.name} + '?'"></div>
+                                    th:text="'Are you sure you want to delete ticket ' + ${ticket.name} + '?'"></div>
                                 <div class="modal-footer">
                                     <form th:action="@{'/tickets/delete/' + ${ticket.id}}" method="POST">
                                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
