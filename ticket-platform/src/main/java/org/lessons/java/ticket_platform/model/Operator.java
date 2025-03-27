@@ -83,6 +83,22 @@ public class Operator {
         this.tickets = tickets;
     }
 
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Operator [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", status=" + status

@@ -8,6 +8,7 @@ import org.lessons.java.ticket_platform.model.Operator;
 import org.lessons.java.ticket_platform.model.Ticket;
 import org.lessons.java.ticket_platform.repository.NoteRepository;
 import org.lessons.java.ticket_platform.repository.OperatorRepository;
+import org.lessons.java.ticket_platform.repository.RoleRepository;
 import org.lessons.java.ticket_platform.repository.TicketRepository;
 import org.lessons.java.ticket_platform.service.OperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,25 @@ public class TicketController {
     @Autowired
     private NoteRepository noteRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @GetMapping
     public String view(Model model) {
-        List<Ticket> tickets = ticketRepository.findAll();
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = userDetails.getUsername();
+        Operator loggedOperator = operatorService.getLoggedOperator(username);
+
+        if (loggedOperator.getUser().getRoles().contains(roleRepository.findByName("ADMIN").get())) {
+
+            List<Ticket> tickets = ticketRepository.findAll();
+            model.addAttribute("tickets", tickets);
+            return("/tickets/index");
+
+        }
+
+        List<Ticket> tickets = ticketRepository.findByOperator(loggedOperator);
         model.addAttribute("tickets", tickets);
         return("/tickets/index");
     }
